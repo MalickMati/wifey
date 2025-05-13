@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To The Love of My Life 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+  <link rel="shortcut icon" href="favicon.jpg" type="image/x-icon">
+  <style>
+    /* Modern Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: white;
+    }
+
+    /* Floating Hearts (Click Effect) */
+    .heart {
+      position: absolute;
+      pointer-events: none;
+      font-size: 24px;
+      opacity: 0;
+      animation: float 4s ease-in-out forwards;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-100px) rotate(20deg); opacity: 0; }
+    }
+
+    /* Closed Card (3D Flip Effect) */
+    .card-closed {
+      width: 320px;
+      height: 450px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: all 0.8s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .card-closed::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { left: -50%; }
+      100% { left: 150%; }
+    }
+
+    .card-closed h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 42px;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4, #ff9a9e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-closed p {
+      font-size: 16px;
+      opacity: 0.9;
+      text-align: center;
+      padding: 0 30px;
+    }
+
+    .card-closed .icon {
+      font-size: 60px;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    /* Opened Card (Timeline) */
+    .card-opened {
+      width: 90%;
+      max-width: 800px;
+      display: none;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .timeline {
+      position: relative;
+      margin: 40px 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #ff9a9e, #fad0c4, #ff9a9e);
+      transform: translateX(-50%);
+    }
+
+    .memory {
+      position: relative;
+      margin-bottom: 60px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .memory:nth-child(odd) {
+      padding-right: 50%;
+      text-align: right;
+    }
+
+    .memory:nth-child(even) {
+      padding-left: 50%;
+      text-align: left;
+    }
+
+    .memory img, .memory video {
+      width: 100%;
+      max-width: 350px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s;
+      border: 3px solid white;
+    }
+
+    .memory img:hover, .memory video:hover {
+      transform: scale(1.03) rotate(-1deg);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .caption {
+      margin-top: 15px;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+    }
+
+    .date {
+      display: inline-block;
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+      padding: 5px 15px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Particles Background */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .memory:nth-child(odd),
+      .memory:nth-child(even) {
+        padding: 0;
+        text-align: center;
+      }
+      .timeline::before {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <!-- Closed Card -->
+  <div class="card-closed" id="closedCard">
+    <div class="icon">💌</div>
+    <h1>For My Love</h1>
+    <p>Every moment with you is a treasure. Click to relive our journey...</p>
+  </div>
+
+  <!-- Opened Card (Timeline) -->
+  <div class="card-opened" id="openedCard">
+    <h1 style="font-family: 'Dancing Script', cursive; font-size: 48px; text-align: center; margin-bottom: 30px; background: linear-gradient(45deg, #ff9a9e, #fad0c4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Our Beautiful Journey</h1>
+    
+    <div class="timeline">
+      <!-- Memory 1 -->
+      <div class="memory">
+        <div class="date">January 2025</div>
+        <img src="1.jpg" alt="Had">
+        <div class="caption">The first time we went out with family 💖</div>
+      </div>
+
+      <!-- Memory 2 -->
+      <div class="memory">
+        <div class="date">December 2024</div>
+        <img src="2.jpg" alt="Watching">
+        <div class="caption">The night I knew forever was you 💍</div>
+      </div>
+
+      <!-- Memory 3 -->
+      <div class="memory">
+        <div class="date">January 2025</div>
+        <img src="3.jpg" alt="Engagement">
+        <div class="caption">Going for Dinner</div>
+      </div>
+
+      <!-- Memory 4 -->
+      <div class="memory">
+        <div class="date">March 2023</div>
+        <img src="4.jpg" alt="Wedding">
+        <div class="caption">Our perfect day 🤵👰</div>
+      </div>
+
+      <!-- Memory 5 -->
+      <div class="memory">
+        <div class="date">Today & Always</div>
+        <img src="5.jpg" alt="Future">
+        <div class="caption"></div>
+      </div>
+
+      <!-- Memory 6 -->
+      <div class="memory">
+        <div class="date">Today & Always</div>
+        <img src="6.jpg" alt="Future">
+        <div class="caption"></div>
+      </div>
+
+      <!-- Memory 7 -->
+      <div class="memory">
+        <div class="date">Today & Always</div>
+        <img src="7.jpg" alt="Future">
+        <div class="caption"></div>
+      </div>
+
+      <div class="memory">
+        <div class="date">Today & Always</div>
+        <video src="1.mp4" muted autoplay loop></video>
+        <div class="caption"></div>
+      </div>
+
+      <div class="memory">
+        <div class="date">Today & Always</div>
+        <video src="2.mp4" muted autoplay loop></video>
+        <div class="caption"></div>
+      </div>
+
+      <div class="memory">
+        <div class="date">Today & Always</div>
+        <video src="3.mp4" muted autoplay loop></video>
+        <div class="caption"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Heart Click Effect
+    document.addEventListener('click', function(e) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '❤️';
+      heart.style.left = e.clientX + 'px';
+      heart.style.top = e.clientY + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4000);
+    });
+
+    // Particles Background
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { random: true, value: 0.5 },
+        size: { random: true, value: 3 },
+        line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 },
+        move: { enable: true, speed: 2, direction: "none", random: true }
+      }
+    });
+
+    // Open Card Animation
+    document.getElementById('closedCard').addEventListener('click', function() {
+      const closedCard = document.getElementById('closedCard');
+      const openedCard = document.getElementById('openedCard');
+      
+      // 3D Flip + Zoom Out
+      gsap.to(closedCard, {
+        rotationY: 180,
+        opacity: 0,
+        scale: 0.8,
+        duration: 1,
+        ease: "power3.inOut",
+        onComplete: () => {
+          closedCard.style.display = 'none';
+          openedCard.style.display = 'flex';
+          animateTimeline();
+        }
+      });
+    });
+
+    // Timeline Animation (Staggered + Parallax)
+    function animateTimeline() {
+      const memories = document.querySelectorAll('.memory');
+      
+      gsap.to(memories, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.4,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: ".timeline",
+          start: "top 60%",
+          toggleActions: "play none none none"
+        }
+      });
+    }
+  </script>
+</body>
+</html>
