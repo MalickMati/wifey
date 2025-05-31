@@ -22,6 +22,21 @@
       min-height: 100vh;
       overflow-x: hidden;
       color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    /* Container for Perfect Centering */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
 
     /* Floating Hearts (Click Effect) */
@@ -56,6 +71,7 @@
       position: relative;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.2);
+      margin: 0 auto; /* Ensures perfect centering */
     }
 
     .card-closed::before {
@@ -117,6 +133,7 @@
       position: relative;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.2);
+      margin: 20px auto; /* Ensures perfect centering */
     }
 
     .timeline {
@@ -154,7 +171,7 @@
       text-align: left;
     }
 
-    .memory img, .memory video {
+    .memory img, video {
       width: 100%;
       max-width: 350px;
       border-radius: 15px;
@@ -163,7 +180,7 @@
       border: 3px solid white;
     }
 
-    .memory img:hover, .memory video:hover {
+    .memory img:hover, video:hover {
       transform: scale(1.03) rotate(-1deg);
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     }
@@ -205,6 +222,9 @@
       .timeline::before {
         display: none;
       }
+      .card-closed, .card-opened {
+        width: 95%;
+      }
     }
   </style>
 </head>
@@ -224,39 +244,39 @@
     <h1 style="font-family: 'Dancing Script', cursive; font-size: 48px; text-align: center; margin-bottom: 30px; background: linear-gradient(45deg, #ff9a9e, #fad0c4); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Our Beautiful Journey</h1>
     
     <div class="timeline">
-      <!-- Memory 1 -->
-      <div class="memory">
-        <div class="date">January 2025</div>
-        <img src="1.jpg" alt="Had">
-        <div class="caption">The first time we went out with family 💖</div>
-      </div>
-
       <!-- Memory 2 -->
       <div class="memory">
-        <div class="date">December 2024</div>
+        <div class="date">28 December 2024</div>
         <img src="2.jpg" alt="Watching">
         <div class="caption">The night I knew forever was you 💍</div>
       </div>
-
+      
       <!-- Memory 3 -->
       <div class="memory">
-        <div class="date">January 2025</div>
+        <div class="date">4 January 2025</div>
         <img src="3.jpg" alt="Engagement">
         <div class="caption">Going for Dinner</div>
       </div>
 
       <!-- Memory 4 -->
       <div class="memory">
-        <div class="date">March 2023</div>
+        <div class="date">7 January 2025</div>
         <img src="4.jpg" alt="Wedding">
         <div class="caption">Our perfect day 🤵👰</div>
       </div>
 
       <!-- Memory 5 -->
       <div class="memory">
-        <div class="date">Today & Always</div>
+        <div class="date">21 January 2025</div>
         <img src="5.jpg" alt="Future">
-        <div class="caption"></div>
+        <div class="caption">My favorite Cartoon</div>
+      </div>
+
+      <!-- Memory 1 -->
+      <div class="memory">
+        <div class="date">29 January 2025</div>
+        <img src="1.jpg" alt="Had">
+        <div class="caption">The first time we went out with family 💖</div>
       </div>
 
       <!-- Memory 6 -->
